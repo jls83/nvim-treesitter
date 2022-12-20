@@ -96,6 +96,7 @@
 (use_list (scoped_identifier (identifier) @namespace . (_)))
 (use_list (identifier) @type (#lua-match? @type "^[A-Z]"))
 (use_as_clause alias: (identifier) @type (#lua-match? @type "^[A-Z]"))
+(use_wildcard (identifier) @namespace)
 
 ;; Correct enum constructors
 (call_expression
