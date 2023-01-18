@@ -19,13 +19,21 @@ function M.attach(bufnr, lang)
   local config = configs.get_module "highlight"
   vim.treesitter.start(bufnr, lang)
   if config and should_enable_vim_regex(config, lang) then
-    vim.bo[bufnr].syntax = "ON"
+    -- PR #4092 broke VimWiki's markdown syntax. Hack to add support here for
+    -- now.
+    -- https://github.com/nvim-treesitter/nvim-treesitter/pull/4092
+    -- vim.bo[bufnr].syntax = "ON"
+    vim.api.nvim_buf_set_option(bufnr, "syntax", "ON")
   end
 end
 
 ---@param bufnr integer
 function M.detach(bufnr)
   vim.treesitter.stop(bufnr)
+  -- PR #4092 broke VimWiki's markdown syntax. Hack to add support here for
+  -- now.
+  -- https://github.com/nvim-treesitter/nvim-treesitter/pull/4092
+  vim.api.nvim_buf_set_option(bufnr, "syntax", "ON")
 end
 
 ---@deprecated
